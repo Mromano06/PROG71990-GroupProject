@@ -1,5 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "product.h"
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
 
 // group4 - 71990f24 - group project
 
@@ -21,8 +25,8 @@ bool UpdateProduct(PRODUCT* p) {
 	int inputNum = 0;
 	printf("Enter 1 to edit price\nEnter 2 to edit sku\nEnter 3 to edit quantity\n");
 	printf("Enter 4 to edit the products name\nEnter 5 to edit the products description");
-	printf("\nEnter 0 To cancel\Enter selection: ");
-	scanf_s("%d", inputNum);
+	printf("\nEnter 0 To cancel\nEnter selection: ");
+	scanf_s("%d", &inputNum);
 
 	switch (inputNum)																			// checks for what you want to change
 	{
@@ -36,7 +40,7 @@ bool UpdateProduct(PRODUCT* p) {
 		break;
 	case 2:
 		printf("\nEnter new sku: ");
-		int tempSku= 0;
+		int tempSku = 0;
 		scanf_s("%d", &tempSku);
 		p->sku = tempSku;
 		break;
@@ -48,19 +52,20 @@ bool UpdateProduct(PRODUCT* p) {
 		break;
 	case 4:
 		printf("\nEnter new name: ");
-		int tempName[] = { 0 };
-		scanf_s("%s", tempName);
+		char tempName[NAME_LENGTH] = { '\0' };
+		scanf_s("%s", tempName, NAME_LENGTH);
 		strncpy(p->name, tempName, NAME_LENGTH);
 		break;
 	case 5:
 		printf("\nEnter new description: ");
-		int tempDescription[] = { 0 };
-		scanf_s("%s", tempDescription);
-		strncpy(p->description, tempDescription, NAME_LENGTH);
+		char tempDescription[DESCRIPTION_LENGTH] = { '\0' };
+		scanf_s("%s", tempDescription, DESCRIPTION_LENGTH);
+		strncpy(p->description, tempDescription, DESCRIPTION_LENGTH);
 		break;
 	default:
 		printf("\nInvalid Input");
 		return false;
+	}
 
 
 	return true;
