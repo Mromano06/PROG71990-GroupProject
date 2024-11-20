@@ -1,0 +1,71 @@
+#include "product.h"
+#include <stdio.h>
+
+// group4 - 71990f24 - group project
+
+// Product implementation
+
+PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc[]) {			// add this to a linked list
+	PRODUCT newProduct;
+
+	newProduct.price = Price;
+	newProduct.sku = Sku;
+	newProduct.quantity = Quantity;
+	strncpy(newProduct.name, Name, NAME_LENGTH);
+	strncpy(newProduct.description, Desc, DESCRIPTION_LENGTH);
+
+	return newProduct;
+}
+
+bool UpdateProduct(PRODUCT* p) {
+	int inputNum = 0;
+	printf("Enter 1 to edit price\nEnter 2 to edit sku\nEnter 3 to edit quantity\n");
+	printf("Enter 4 to edit the products name\nEnter 5 to edit the products description");
+	printf("\nEnter 0 To cancel\Enter selection: ");
+	scanf_s("%d", inputNum);
+
+	switch (inputNum)																			// checks for what you want to change
+	{
+	case 0:
+		return false;
+	case 1:
+		printf("\nEnter new price: ");
+		float tempPrice = 0;
+		scanf_s("%f", &tempPrice);
+		p->price = tempPrice;
+		break;
+	case 2:
+		printf("\nEnter new sku: ");
+		int tempSku= 0;
+		scanf_s("%d", &tempSku);
+		p->sku = tempSku;
+		break;
+	case 3:
+		printf("\nEnter new quantity: ");
+		int tempQuantity = 0;
+		scanf_s("%d", &tempQuantity);
+		p->quantity = tempQuantity;
+		break;
+	case 4:
+		printf("\nEnter new name: ");
+		int tempName[] = { 0 };
+		scanf_s("%s", tempName);
+		strncpy(p->name, tempName, NAME_LENGTH);
+		break;
+	case 5:
+		printf("\nEnter new description: ");
+		int tempDescription[] = { 0 };
+		scanf_s("%s", tempDescription);
+		strncpy(p->description, tempDescription, NAME_LENGTH);
+		break;
+	default:
+		printf("\nInvalid Input");
+		return false;
+
+
+	return true;
+}
+
+void DeleteProduct(PRODUCT* p) {																
+	// this wont do much right now
+}
