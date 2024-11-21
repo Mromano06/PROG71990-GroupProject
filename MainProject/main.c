@@ -5,3 +5,9 @@
 // group members: Matthew Romano, Evan Travis, Liv Greenwood
 
 // Main implementation for group project
+
+int main(void) {
+
+
+	return 0;
+}
