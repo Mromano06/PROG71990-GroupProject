@@ -21,6 +21,10 @@ typedef struct product {
 
 PRODUCT CreateProduct(float price, int sku, int quantity, char name[], char desc[]);
 
+PRODUCT CopyProduct(PRODUCT p);
+
 bool UpdateProduct(PRODUCT* p);
 
-void DeleteProduct(PRODUCT* p);
+void PrintProduct(PRODUCT p);
+
+void DeleteProduct(PRODUCT p);

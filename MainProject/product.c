@@ -21,6 +21,7 @@ PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc
 	return newProduct;
 }
 
+// allows the user to update the selected kind of data
 bool UpdateProduct(PRODUCT* p) {
 	int inputNum = 0;
 	printf("Enter 1 to edit price\nEnter 2 to edit sku\nEnter 3 to edit quantity\n");
@@ -71,6 +72,17 @@ bool UpdateProduct(PRODUCT* p) {
 	return true;
 }
 
-void DeleteProduct(PRODUCT* p) {																
-	// this wont do much right now
+// makes an exact copy of the product
+PRODUCT CopyProduct(PRODUCT p) {
+	return CreateProduct(p.price, p.sku,													
+		p.quantity,p.name, p.description);
+}
+
+// prints product
+void PrintProduct(PRODUCT p) {		
+	printf("");											// this is all yours liv make it super fancy
+}
+
+void DeleteProduct(PRODUCT p) {																
+	// this wont do much right now (or ever)
 }
