@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 
 // group4 - 71990f24 - group project
 
@@ -78,9 +79,63 @@ PRODUCT CopyProduct(PRODUCT p) {
 		p.quantity,p.name, p.description);
 }
 
+// reads a product from the file 
+// (info held in the file will most likely be held in a list,
+// formatting an dprinting will ony be used in the interface/UI)
+bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
+	FILE* readFile;
+	readFile= fopen(fileName, "r");															
+	if (readFile == NULL) {
+		perror("Error opening original file");
+		exit(EXIT_FAILURE);
+	}
+
+	float price = 0;													// temp variables for saving the product
+	int sku = 0, quantity = 0;
+	char name[NAME_LENGTH] = { '\0' },
+		desc[DESCRIPTION_LENGTH] = { '\0' };
+
+	// float Price, int Sku, int Quantity, char Name[], char Desc[]
+	if (fscanf(readFile, "%f %d %d %s %s", &price, &sku,				// reads data from file and saves into sent product
+		&quantity, name, desc) == 5) {	
+		p->price = price;
+		p->sku = sku;
+		p->quantity = quantity;
+		strncpy(p->name, name, NAME_LENGTH);
+		strncpy(p->description, desc, DESCRIPTION_LENGTH);
+	}
+	else
+		return false;
+
+
+	return true;
+}
+
+// write a product to the file
+bool WriteProductToFile(const char* fileName, PRODUCT* p) {
+	FILE* writeFile;
+	writeFile = fopen(fileName, "w");
+	if (writeFile == NULL) {
+		perror("Error opening original file");
+		exit(EXIT_FAILURE);
+	}
+
+	float price = p->price;												// temp variables for saving the product
+	int sku = p->sku, quantity = p->quantity;
+	char name[NAME_LENGTH] = p->name,
+		desc[DESCRIPTION_LENGTH] = p->description;
+
+	if (!fprintf(writeFile, "%f %d %d %s %s", &price, &sku,				// prints p's data to file
+		&quantity, name, desc))
+		return false;
+
+
+	return true;
+}
+
 // prints product
 void PrintProduct(PRODUCT p) {		
-	printf("");											// this is all yours liv make it super fancy
+	printf("");															// this is all yours liv make it super fancy
 }
 
 void DeleteProduct(PRODUCT p) {																
