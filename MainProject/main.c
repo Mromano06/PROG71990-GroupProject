@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "product.h"
 #include "productList.h"
 #include <stdio.h>
@@ -13,8 +15,8 @@ int main(void) {
 
 	FILE* originalFile;														// made temp files to create them
 	FILE* newFile;
-	const char* originalFileName = "flightData.txt";						// saved the file names as const chars
-	const char* newFileName = "flightDataUpdated.txt";
+	const char* originalFileName = "ProductInfo.txt";						// saved the file names as const chars
+	const char* newFileName = "ProductInfoUpdated.txt";
 
 	newFile = fopen(newFileName, "w");										// creates and adds new files
 	if (newFile == NULL) {													// (also error checks)

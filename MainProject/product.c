@@ -120,13 +120,8 @@ bool WriteProductToFile(const char* fileName, PRODUCT* p) {
 		exit(EXIT_FAILURE);
 	}
 
-	float price = p->price;												// temp variables for saving the product
-	int sku = p->sku, quantity = p->quantity;
-	char name[NAME_LENGTH] = p->name,
-		desc[DESCRIPTION_LENGTH] = p->description;
-
-	if (!fprintf(writeFile, "%f %d %d %s %s", &price, &sku,				// prints p's data to file
-		&quantity, name, desc))
+	if (!fprintf(writeFile, "%f %d %d %s %s", p->price, p->sku,				// prints p's data to file
+		p->quantity, p->name, p->description))
 		return false;
 
 
