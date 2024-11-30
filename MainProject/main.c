@@ -23,7 +23,6 @@ int main(void) {
 		fprintf(stderr, "system was unable to create file\n");
 		exit(EXIT_FAILURE);
 	}
-
 	// creates new file to print to (if needed)
 	originalFile = fopen(originalFileName, "r");
 	if (originalFile == NULL) {
