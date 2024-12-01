@@ -10,7 +10,7 @@
 
 // Product implementation
 
-PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc[]) {			// add this to a linked list
+PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc[]) {
 	PRODUCT newProduct;
 
 	newProduct.price = Price;
@@ -30,7 +30,9 @@ bool UpdateProduct(PRODUCT* p) {
 	printf("\nEnter 0 To cancel\nEnter selection: ");
 	scanf_s("%d", &inputNum);
 
-	switch (inputNum)																			// checks for what you want to change
+	// checks for what you want to change
+	// user can input any specific part of the product to edit
+	switch (inputNum)																			
 	{
 	case 0:
 		return false;
@@ -128,7 +130,6 @@ bool WriteProductToFile(const char* fileName, PRODUCT* p) {
 	return true;
 }
 
-// prints product
 void PrintProduct(PRODUCT p) {		
 	printf("");															// this is all yours liv make it super fancy
 }

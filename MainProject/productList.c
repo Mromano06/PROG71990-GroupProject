@@ -41,7 +41,7 @@ void DestroyList(PLISTNODE* list) {											// be carefull becasue this doesn'
 	PLISTNODE current = *list;
 	while (current != NULL) {
 		PLISTNODE tmp = current;
-		DeleteProduct(current->data);
+		DeleteProduct(current->data);										// delete product isnt real ;)
 		current = current->next;
 		free(tmp);
 	}
