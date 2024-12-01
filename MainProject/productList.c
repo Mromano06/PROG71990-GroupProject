@@ -37,7 +37,7 @@ void Display(PLISTNODE list) {
 	}
 }
 
-void DestroyList(PLISTNODE* list) {											// be carefull becasue this doesn't actually "destroy" it
+void DestroyList(PLISTNODE* list) {							// be careful becasue this doesn't actually "destroy" it
 	PLISTNODE current = *list;
 	while (current != NULL) {
 		PLISTNODE tmp = current;
