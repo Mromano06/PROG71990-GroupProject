@@ -33,6 +33,8 @@ int main(void) {
 		char name[NAME_LENGTH] = { 0 };
 		char description[DESCRIPTION_LENGTH] = { 0 };
 
+		PLISTNODE p = NULL;
+
 		int inputNum = printMenu();
 
 		switch (inputNum) {				// checks for what you want to change
@@ -50,11 +52,11 @@ int main(void) {
 			break;
 		}
 		case 4: { // Update product
-			// UpdateProduct(PRODUCT * p)
+			UpdateProduct(p);
 			break;
 		}
 		case 3: { // Search products (includes display 1 and display range)
-			// SearchProductMenu(); //TODO: run the proper thang through this func here
+			SearchProductMenu(p);
 			break;
 		}
 		case 2: { // Delete product
@@ -62,7 +64,7 @@ int main(void) {
 			break;
 		}
 		case 1: { // Display all products
-			// displayAll();  //TODO: run the proper thang through this func here
+			DisplayAll(p);  
 			break;
 		}
 		case 0: { // Exit

@@ -25,10 +25,6 @@ PRODUCT CopyProduct(PRODUCT p);
 
 bool UpdateProduct(PRODUCT* p);
 
-void SearchProductMenu(PRODUCT p);
-
-void displayAll(PLISTNODE);
-
-void PrintProduct(PRODUCT p);
+void PrintProduct(PRODUCT p); // [X]
 
 void DeleteProduct(PRODUCT p);
