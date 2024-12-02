@@ -122,7 +122,7 @@ bool WriteProductToFile(const char* fileName, PRODUCT* p) {
 		exit(EXIT_FAILURE);
 	}
 
-	if (!fprintf(writeFile, "%f %d %d %s %s", p->price, p->sku,				// prints p's data to file
+	if (!fprintf(writeFile, "%f %d %d %s %s", p->price, p->sku,			// prints p's data to file
 		p->quantity, p->name, p->description))
 		return false;
 
