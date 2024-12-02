@@ -109,7 +109,7 @@ bool SearchProductMenu(PLISTNODE list) {
 		printf("|-----------------------------|\n");
 
 		printf("Enter option: ");
-		if (scanf_s("%d", &searchType) != 1 || searchType > 2 || searchType < 0) {
+		if (scanf("%d", &searchType) != 1 || searchType > 2 || searchType < 0) {
 			printf("Invaild option");
 			return 0;
 		}
@@ -136,11 +136,11 @@ bool SearchProductMenu(PLISTNODE list) {
 
 bool SearchSingleProduct(PLISTNODE list) {
 	int sku = 0;
-	char name = { 0 };
+	char name[NAME_LENGTH] = { '\0' };
 	PLISTNODE current = list;
 
 	printf("Enter products sku and name (sku name): ");
-	if (scanf_s("%d %s", sku, &name) != 2) {
+	if (scanf("%d %s", &sku, name) != 2) {
 		perror("Invalid input");
 	}
 	// current = head; // TODO
@@ -158,30 +158,32 @@ bool SearchSingleProduct(PLISTNODE list) {
 
 bool SearchRangeOfProducts(PLISTNODE list) {
 	int skuStart, skuEnd = 0;			// create variables for the start and end of the range
-	char nameStart, nameEnd = { 0 };
+	char nameStart[NAME_LENGTH] = { '\0' },
+		nameEnd[NAME_LENGTH] = { '\0' };
 
 	int skuTemp1 = 0;
 	int skuTemp2 = 0;			// create variables for the users sku inputs to verify start and end
-	char nameTemp1, nameTemp2 = { 0 };
+	char nameTemp1[NAME_LENGTH] = { '\0' },
+		nameTemp2[NAME_LENGTH] = { '\0' };
 	PLISTNODE current = list;
 
 	// current = head; // TODO
 
-	bool start, end = false;
+	bool start = false, end = false;
 
 	printf("Enter range you would like to search, by products skus and names (sku1 name1, sku2 name2): ");
-	if (scanf_s("%d %s, %d %s", skuTemp1, &nameTemp1, skuTemp2, &nameTemp2) != 4) {
+	if (scanf("%d %s, %d %s", &skuTemp1, nameTemp1, &skuTemp2, nameTemp2) != 4) {
 		printf("Invalid input");
 		return false;
 	}
 
 	if (skuTemp1 < skuTemp2) { // set the lower sku to the start (if we end up sorting by highest to lowest reverse this)
 		skuStart = skuTemp1;
-		nameStart = nameTemp1;
+		strncpy(nameStart, nameTemp1, NAME_LENGTH);
 	}
 	else {
 		skuStart = skuTemp2;
-		nameStart = nameTemp2;
+		strncpy(nameStart, nameTemp2, NAME_LENGTH);
 	}
 
 	while (current != NULL) {
