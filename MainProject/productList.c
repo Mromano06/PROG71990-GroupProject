@@ -59,14 +59,14 @@ void PrintListToStream(PLISTNODE list, const char* fileName) {
 
 void CreateListFromStream(PLISTNODE list, const char* fileName) {
 	PLISTNODE current = list;
-	int i = GetListSize(current);
-	for (int x = 0; x < i; x++) {
-		while (ReadProductFromFile(fileName, &current->data))
+	int i = GetListSize(current);											// checks the list size
+	for (int x = 0; x < i; x++) {											// makes sure list doesnt become null pointer
+		while (ReadProductFromFile(fileName, &current->data))				// (also does same in above function)
 			current = current->next;
 	}
 }
 
-int GetListSize(PLISTNODE* listHead) {												// gets size of the list
+int GetListSize(PLISTNODE* listHead) {										// gets size of the list
 	int count = 0;
 	PLISTNODE current = listHead;
 	while (current != NULL) {
