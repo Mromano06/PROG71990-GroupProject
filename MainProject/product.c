@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "product.h"
+#include "productList.h"
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -25,14 +27,14 @@ PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc
 // allows the user to update the selected kind of data
 bool UpdateProduct(PRODUCT* p) {
 	int inputNum = 0;
-	printf("Enter 1 to edit price\nEnter 2 to edit sku\nEnter 3 to edit quantity\n");
-	printf("Enter 4 to edit the products name\nEnter 5 to edit the products description");
-	printf("\nEnter 0 To cancel\nEnter selection: ");
+	printf("1. Edit price\n2. Edit sku\n3. Edit quantity\n"
+		   "4. Edit the products name\n5. Edit the products description"
+		   "\n0. Cancel\nEnter selection: ");
 	scanf_s("%d", &inputNum);
 
 	// checks for what you want to change
 	// user can input any specific part of the product to edit
-	switch (inputNum)																			
+	switch (inputNum)			
 	{
 	case 0:
 		return false;
@@ -71,7 +73,6 @@ bool UpdateProduct(PRODUCT* p) {
 		return false;
 	}
 
-
 	return true;
 }
 
@@ -80,6 +81,141 @@ PRODUCT CopyProduct(PRODUCT p) {
 	return CreateProduct(p.price, p.sku,													
 		p.quantity,p.name, p.description);
 }
+
+void DisplayAll(PLISTNODE list) { // function to display all products
+	PLISTNODE current = list;
+
+	printf("\nAll Products:\n");
+	while (current != NULL) {
+		printf("sku: %d, name: %s, auantity: %d, price: %.2f, description: %s\n", // print the data of current
+			current->data.sku, current->data.name,
+			current->data.quantity, current->data.price,
+			current->data.description);
+		
+		current = current->next; // continue to the next product
+	}
+}
+
+bool SearchProductMenu(PLISTNODE list) {
+	
+	bool continueSearch = true;
+	while (continueSearch) {
+		int searchType = 0;
+
+		printf("|-----------------------------|\n");
+		printf("| 2. Search single item       |\n");
+		printf("| 1. Search range of items    |\n");
+		printf("| 0. Return to previous menu  |\n");
+		printf("|-----------------------------|\n");
+
+		printf("Enter option: ");
+		if (scanf_s("%d", &searchType) != 1 || searchType > 2 || searchType < 0) {
+			printf("Invaild option");
+			return 0;
+		}
+
+		switch (searchType)
+		{
+		case 2: // search 1 item
+			SearchSingleProduct(list); //TODO: i dunno what to run though this func yet (same with the search range)
+
+			break;
+		case 1:	// search range of items
+			SearchRangeOfProducts(list);
+
+			break;
+		case 0: // return to previous menu
+			searchType = false;
+			break;
+		default:
+			printf("\nInvalid Input");
+			break;
+		}
+	}
+}
+
+bool SearchSingleProduct(PLISTNODE list) {
+	int sku = 0;
+	char name = { 0 };
+	PLISTNODE current = list;
+
+	printf("Enter products sku and name (sku name): ");
+	if (scanf_s("%d %s", sku, &name) != 2) {
+		perror("Invalid input");
+	}
+	// current = head; // TODO
+	while (current != NULL) {
+		
+		if (current->data.sku == sku && current->data.name == name) {
+			printf("Product found: \n");
+			PrintProduct(current->data);
+		}
+			
+		else
+			current = current->next; // continue to the next product
+	}
+}
+
+bool SearchRangeOfProducts(PLISTNODE list) {
+	int skuStart, skuEnd = 0;			// create variables for the start and end of the range
+	char nameStart, nameEnd = { 0 };
+
+	int skuTemp1 = 0;
+	int skuTemp2 = 0;			// create variables for the users sku inputs to verify start and end
+	char nameTemp1, nameTemp2 = { 0 };
+	PLISTNODE current = list;
+
+	// current = head; // TODO
+
+	bool start, end = false;
+
+	printf("Enter range you would like to search, by products skus and names (sku1 name1, sku2 name2): ");
+	if (scanf_s("%d %s, %d %s", skuTemp1, &nameTemp1, skuTemp2, &nameTemp2) != 4) {
+		printf("Invalid input");
+		return false;
+	}
+
+	if (skuTemp1 < skuTemp2) { // set the lower sku to the start (if we end up sorting by highest to lowest reverse this)
+		skuStart = skuTemp1;
+		nameStart = nameTemp1;
+	}
+	else {
+		skuStart = skuTemp2;
+		nameStart = nameTemp2;
+	}
+
+	while (current != NULL) {
+
+		if (current->data.sku == skuStart && current->data.name == nameStart) // find the start product first
+			start = true;
+		if (current->data.sku == skuEnd && current->data.name == nameEnd)
+			end = true;
+
+		else
+			current = current->next; // continue to the next product
+	}
+
+	if (start && end) {// if both the start product and end product are found then continue 
+		// current = head; // TODO: create a pointer in place of head that points to the start of the listnodes 
+
+		while (current != NULL && current->data.sku != skuStart) { // loop through the nodes till we find the one that has our sku 
+			current = current->next;							   // this makes current land on this start product
+		}
+		while (current != NULL && current->data.sku <= skuEnd) {
+				PrintProduct(current->data);
+				current = current->next;
+			}
+		return true;
+		}
+    
+		return false;
+	}
+
+// prints product
+void PrintProduct(PRODUCT p) {		
+	printf("sku: %d, name: %s, auantity: %d, price: %.2f, description: %s\n", // print the data of located product
+		p.sku, p.name, p.quantity, p.price, p.description);
+    }
 
 // reads a product from the file 
 // (info held in the file will most likely be held in a list,
@@ -128,10 +264,6 @@ bool WriteProductToFile(const char* fileName, PRODUCT* p) {
 
 
 	return true;
-}
-
-void PrintProduct(PRODUCT p) {		
-	printf("");															// this is all yours liv make it super fancy
 }
 
 void DeleteProduct(PRODUCT p) {																

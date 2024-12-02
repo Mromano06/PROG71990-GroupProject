@@ -132,6 +132,7 @@
     <ClCompile Include="productList.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="product.h" />
     <ClInclude Include="productList.h" />
   </ItemGroup>

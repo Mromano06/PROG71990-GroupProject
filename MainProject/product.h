@@ -25,7 +25,7 @@ PRODUCT CopyProduct(PRODUCT p);
 
 bool UpdateProduct(PRODUCT* p);
 
-void PrintProduct(PRODUCT p);
+void PrintProduct(PRODUCT p); // [X]
 
 bool ReadProductFromFile(const char* fileName, PRODUCT* p);
 
