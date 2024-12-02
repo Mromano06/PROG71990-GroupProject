@@ -2,6 +2,7 @@
 #include "product.h"
 
 // group4 - 71990f24 - group project
+// 
 // product linked list interface
 
 typedef struct productListNode {
@@ -30,3 +31,5 @@ void PrintListToStream(PLISTNODE list, const char* fileName);
 void CreateListFromStream(PLISTNODE list, const char* fileName);
 
 int GetListSize(PLISTNODE* listHead);
+
+void FindProductToUpdate(PLISTNODE list);
