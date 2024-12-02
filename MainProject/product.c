@@ -6,12 +6,13 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 
 // group4 - 71990f24 - group project
 
 // Product implementation
 
-PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc[]) {			// add this to a linked list
+PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc[]) {
 	PRODUCT newProduct;
 
 	newProduct.price = Price;
@@ -31,7 +32,9 @@ bool UpdateProduct(PRODUCT* p) {
 		   "\n0. Cancel\nEnter selection: ");
 	scanf_s("%d", &inputNum);
 
-	switch (inputNum)					// checks for what you want to change
+	// checks for what you want to change
+	// user can input any specific part of the product to edit
+	switch (inputNum)			
 	{
 	case 0:
 		return false;
@@ -140,9 +143,7 @@ bool SearchSingleProduct(PLISTNODE list) {
 	if (scanf_s("%d %s", sku, &name) != 2) {
 		perror("Invalid input");
 	}
-
 	// current = head; // TODO
-
 	while (current != NULL) {
 		
 		if (current->data.sku == sku && current->data.name == name) {
@@ -178,7 +179,6 @@ bool SearchRangeOfProducts(PLISTNODE list) {
 		skuStart = skuTemp1;
 		nameStart = nameTemp1;
 	}
-
 	else {
 		skuStart = skuTemp2;
 		nameStart = nameTemp2;
@@ -188,7 +188,6 @@ bool SearchRangeOfProducts(PLISTNODE list) {
 
 		if (current->data.sku == skuStart && current->data.name == nameStart) // find the start product first
 			start = true;
-
 		if (current->data.sku == skuEnd && current->data.name == nameEnd)
 			end = true;
 
@@ -199,17 +198,16 @@ bool SearchRangeOfProducts(PLISTNODE list) {
 	if (start && end) {// if both the start product and end product are found then continue 
 		// current = head; // TODO: create a pointer in place of head that points to the start of the listnodes 
 
-
 		while (current != NULL && current->data.sku != skuStart) { // loop through the nodes till we find the one that has our sku 
 			current = current->next;							   // this makes current land on this start product
 		}
-
 		while (current != NULL && current->data.sku <= skuEnd) {
 				PrintProduct(current->data);
 				current = current->next;
 			}
 		return true;
 		}
+    
 		return false;
 	}
 
@@ -217,6 +215,55 @@ bool SearchRangeOfProducts(PLISTNODE list) {
 void PrintProduct(PRODUCT p) {		
 	printf("sku: %d, name: %s, auantity: %d, price: %.2f, description: %s\n", // print the data of located product
 		p.sku, p.name, p.quantity, p.price, p.description);
+    }
+
+// reads a product from the file 
+// (info held in the file will most likely be held in a list,
+// formatting an dprinting will ony be used in the interface/UI)
+bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
+	FILE* readFile;
+	readFile= fopen(fileName, "r");															
+	if (readFile == NULL) {
+		perror("Error opening original file");
+		exit(EXIT_FAILURE);
+	}
+
+	float price = 0;													// temp variables for saving the product
+	int sku = 0, quantity = 0;
+	char name[NAME_LENGTH] = { '\0' },
+		desc[DESCRIPTION_LENGTH] = { '\0' };
+
+	// float Price, int Sku, int Quantity, char Name[], char Desc[]
+	if (fscanf(readFile, "%f %d %d %s %s", &price, &sku,				// reads data from file and saves into sent product
+		&quantity, name, desc) == 5) {	
+		p->price = price;
+		p->sku = sku;
+		p->quantity = quantity;
+		strncpy(p->name, name, NAME_LENGTH);
+		strncpy(p->description, desc, DESCRIPTION_LENGTH);
+	}
+	else
+		return false;
+
+
+	return true;
+}
+
+// write a product to the file
+bool WriteProductToFile(const char* fileName, PRODUCT* p) {
+	FILE* writeFile;
+	writeFile = fopen(fileName, "w");
+	if (writeFile == NULL) {
+		perror("Error opening original file");
+		exit(EXIT_FAILURE);
+	}
+
+	if (!fprintf(writeFile, "%f %d %d %s %s", p->price, p->sku,			// prints p's data to file
+		p->quantity, p->name, p->description))
+		return false;
+
+
+	return true;
 }
 
 void DeleteProduct(PRODUCT p) {																

@@ -1,4 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include "product.h"
+#include "productList.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "Interface.h"
 #include "product.h"
@@ -11,17 +16,25 @@
 // Main implementation for group project
 
 int main(void) {
+	PLISTNODE productList = NULL;
+	FILE* originalFile;														// made temp files to create them
+	FILE* newFile;
+	const char* originalFileName = "ProductInfo.txt";						// saved the file names as const chars
+	const char* newFileName = "ProductInfoUpdated.txt";
 
-	/*
-	add a new product X											 [X] [ ]
-	delete an existing product X (deletion ain't really a thing) [ ] [ ]
-	update an existing product  X								 [X] [ ]
-	display single product										 [X] [ ]
-	display range product										 [X] [ ]
-	display all product											 [X] [ ]
-	search for product											 [X] [X]
-	Exit														 [ ] [ ]
-	*/
+	newFile = fopen(newFileName, "w");										// creates and adds new files
+	if (newFile == NULL) {													// (also error checks)
+		fprintf(stderr, "system was unable to create file\n");
+		exit(EXIT_FAILURE);
+	}
+	// creates new file to print to (if needed)
+	originalFile = fopen(originalFileName, "r");
+	if (originalFile == NULL) {
+		originalFile = fopen(originalFileName, "w");
+	}
+
+	fclose(originalFile);
+	fclose(newFile);
 
 	bool continueProgram = true;
 	while (continueProgram) {
@@ -107,6 +120,9 @@ int printMenu() {
 	printf("|-----------------------------------------------------|\n");
 
 	int menuChoice = 0;
+=======
+	CreateListFromStream(productList, originalFileName);
+	PrintListToStream(productList, newFileName);
 
 	printf("Enter option: "); // fixed shapeChoice input so that it can function with numbers > 7
 	if (scanf_s("%d", &menuChoice) != 1) {

@@ -17,11 +17,16 @@ void Display(PLISTNODE list);
 
 void DestroyList(PLISTNODE* list);
 
-bool SearchProductMenu(PLISTNODE list); //     [X]
+bool SearchProductMenu(PLISTNODE list); 
 
-bool SearchRangeOfProducts(PLISTNODE list); // [X]
+bool SearchRangeOfProducts(PLISTNODE list); 
 
-bool SearchSingleProduct(PLISTNODE list); //   [X]
+bool SearchSingleProduct(PLISTNODE list); 
 
-void DisplayAll(PLISTNODE list); // [ ]
+void DisplayAll(PLISTNODE list); 
 
+void PrintListToStream(PLISTNODE list, const char* fileName);
+
+void CreateListFromStream(PLISTNODE list, const char* fileName);
+
+int GetListSize(PLISTNODE* listHead);
