@@ -50,16 +50,29 @@ void DestroyList(PLISTNODE* list) {											// be carefull becasue this doesn'
 // these funtions should properly down/upload all data
 void PrintListToStream(PLISTNODE list, const char* fileName) {
 	PLISTNODE current = list;
-	while (current != NULL) {
-		WriteProductToFile(fileName, &current->data);						// similar to print
+	int i = GetListSize(current);
+	for (int x = 0; x < i; x ++) {
+	while (WriteProductToFile(fileName, &current->data))
 		current = current->next;
 	}
 }
 
 void CreateListFromStream(PLISTNODE list, const char* fileName) {
 	PLISTNODE current = list;
+	int i = GetListSize(current);
+	for (int x = 0; x < i; x++) {
+		while (ReadProductFromFile(fileName, &current->data))
+			current = current->next;
+	}
+}
+
+int GetListSize(PLISTNODE* listHead) {												// gets size of the list
+	int count = 0;
+	PLISTNODE current = listHead;
 	while (current != NULL) {
-		ReadProductFromFile(fileName, &current->data);
+		count++;
 		current = current->next;
 	}
+
+	return count;
 }

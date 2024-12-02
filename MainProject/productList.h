@@ -20,3 +20,5 @@ void DestroyList(PLISTNODE* list);
 void PrintListToStream(PLISTNODE list, const char* fileName);
 
 void CreateListFromStream(PLISTNODE list, const char* fileName);
+
+int GetListSize(PLISTNODE* listHead);

@@ -12,7 +12,7 @@
 // Main implementation for group project
 
 int main(void) {
-
+	PLISTNODE productList = NULL;
 	FILE* originalFile;														// made temp files to create them
 	FILE* newFile;
 	const char* originalFileName = "ProductInfo.txt";						// saved the file names as const chars
@@ -32,6 +32,8 @@ int main(void) {
 	fclose(originalFile);
 	fclose(newFile);
 
+	CreateListFromStream(productList, originalFileName);
+	PrintListToStream(productList, newFileName);
 
 	return 0;
 }
