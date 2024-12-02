@@ -44,7 +44,6 @@ int main(void) {
 		int quantity = 0;
 		char name[NAME_LENGTH] = { '\0'};
 		char description[DESCRIPTION_LENGTH] = { '\0'};
-
 		int inputNum = printMenu();
 
 		switch (inputNum) {				// checks for what you want to change
@@ -62,7 +61,7 @@ int main(void) {
 			break;
 		}
 		case 4: { // Update product //TODO find what product to edit
-			// UpdateProduct(productList);
+			UpdateProduct(productList);
 			break;
 		}
 		case 3: { // Search products (includes display 1 and display range)
@@ -70,7 +69,6 @@ int main(void) {
 			break;
 		}
 		case 2: { // Delete product
-
 			break;
 		}
 		case 1: { // Display all products
@@ -79,12 +77,10 @@ int main(void) {
 		}
 		case 0: { // Exit
 			continueProgram = false;
-
 			break;
 		}
 		default: {
 			printf("\nInvalid Input");
-
 			continueProgram = false;
 		}
 
