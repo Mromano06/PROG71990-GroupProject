@@ -95,7 +95,7 @@ bool SearchSingleProduct(PLISTNODE list) {
 	if (scanf("%d %s", &sku, name) != 2) {
 		perror("Invalid input");
 	}
-	// current = head; // TODO - matty daddy got it baby
+
 	while (current != NULL) {
 
 		if (current->data.sku == sku && current->data.name == name) {
@@ -197,5 +197,23 @@ int GetListSize(PLISTNODE* listHead) {										// gets size of the list
 }
 
 void FindProductToUpdate(PLISTNODE list) {
-	//	UpdateProduct
+	int sku = 0;
+	char name[NAME_LENGTH] = { '\0' };
+	PLISTNODE current = list;
+
+	printf("Enter products sku and name (sku name): ");
+	if (scanf("%d %s", &sku, name) != 2) {
+		perror("Invalid input");
+	}
+
+	while (current != NULL) {
+
+		if (current->data.sku == sku && current->data.name == name) {
+			printf("Product found\n");
+			UpdateProduct(current);
+		}
+
+		else
+			current = current->next; // continue to the next product
+	}
 }
