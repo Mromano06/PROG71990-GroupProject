@@ -5,7 +5,7 @@ Price
 Sku
 Quantity
 Name
-Desc
+Description
 
 Each part of the "PRODUCT" struct should be listed line by line,
 any other formatting will result in data being disrupted or incorrect and could cause errors,
