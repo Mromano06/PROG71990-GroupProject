@@ -39,5 +39,6 @@ int printMenu() {
 		printf("Invaild option");
 		return 0;
 	}
+	printf("\n");
 	return menuChoice;
 }
