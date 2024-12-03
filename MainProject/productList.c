@@ -43,13 +43,15 @@ void DisplayAll(PLISTNODE list) { // function to display all products
 
 	printf("\nAll Products:\n");
 	while (current != NULL) {
-		printf("sku: %d, name: %s, auantity: %d, price: %.2f, description: %s\n", // print the data of current
+		printf("sku: %d, name: %s, qauantity: %d, price: %.2f, description: %s\n", // print the data of current
 			current->data.sku, current->data.name,
 			current->data.quantity, current->data.price,
 			current->data.description);
 
 		current = current->next; // continue to the next product
 	}
+
+	printf("\n");
 }
 
 void DestroyList(PLISTNODE* list) {											// be careful becasue this doesn't actually "destroy" it
@@ -103,11 +105,10 @@ bool SearchProductMenu(PLISTNODE list) {
 
 bool SearchSingleProduct(PLISTNODE list) {
 	int sku = 0;
-	char name[NAME_LENGTH] = { '\0' };
 	PLISTNODE current = list;
 
 	printf("Enter products sku: ");
-	if (scanf("%d", &sku) != 2) {
+	if (scanf("%d", &sku) != 1) {
 		perror("Invalid input");
 	}
 
@@ -116,6 +117,7 @@ bool SearchSingleProduct(PLISTNODE list) {
 		if (current->data.sku == sku) {
 			printf("Product found: \n");
 			PrintProduct(current->data);
+			printf("\n");
 			return true;
 		}
 
@@ -171,7 +173,8 @@ bool SearchRangeOfProducts(PLISTNODE list) {
 		
 				current = current->next;
 		}
-
+		
+		printf("\n");
 		return true;
 	} 
 
@@ -237,4 +240,68 @@ void FindProductToUpdate(PLISTNODE list) {
 		else
 			current = current->next; // continue to the next product
 	}
+}
+
+// allows the user to update the selected kind of data
+bool UpdateProduct(PLISTNODE list) {
+	int inputNum = 0;
+	int skuInput = 0;
+	PLISTNODE current = list;
+
+	SearchSingleProduct(list);
+
+	printf("|--------------------|\n");
+	printf("| 1. Edit price      |\n");
+	printf("| 2. Edit sku        |\n");
+	printf("| 3. Edit quantity   |\n");
+	printf("| 4. Edit name       |\n");
+	printf("| 5. Edit description|\n");
+	printf("| 0. Cancel          |\n");
+	printf("|--------------------|\n");
+
+	printf("Enter selection: ");
+	scanf_s("%d", &inputNum);
+
+	// checks for what you want to change
+	// user can input any specific part of the product to edit
+	switch (inputNum)
+	{
+	case 0:
+		return false;
+	case 1:
+		printf("\nEnter new price: ");
+		float tempPrice = 0;
+		scanf_s("%f", &tempPrice);
+		current->data.price = tempPrice;
+		break;
+	case 2:
+		printf("\nEnter new sku: ");
+		int tempSku = 0;
+		scanf_s("%d", &tempSku);
+		current->data.sku = tempSku;
+		break;
+	case 3:
+		printf("\nEnter new quantity: ");
+		int tempQuantity = 0;
+		scanf_s("%d", &tempQuantity);
+		current->data.quantity = tempQuantity;
+		break;
+	case 4:
+		printf("\nEnter new name: ");
+		char tempName[NAME_LENGTH] = { '\0' };
+		scanf_s("%s", tempName, NAME_LENGTH);
+		strncpy(current->data.name, tempName, NAME_LENGTH);
+		break;
+	case 5:
+		printf("\nEnter new description: ");
+		char tempDescription[DESCRIPTION_LENGTH] = { '\0' };
+		scanf_s("%s", tempDescription, DESCRIPTION_LENGTH);
+		strncpy(current->data.description, tempDescription, DESCRIPTION_LENGTH);
+		break;
+	default:
+		printf("\nInvalid Input");
+		return false;
+	}
+
+	return true;
 }

@@ -24,66 +24,6 @@ PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc
 	return newProduct;
 }
 
-// allows the user to update the selected kind of data
-bool UpdateProduct(PRODUCT* p) {
-	int inputNum = 0;
-
-	printf("|--------------------|\n");
-	printf("| 1. Edit price      |\n");
-	printf("| 2. Edit sku        |\n");
-	printf("| 3. Edit quantity   |\n");
-	printf("| 4. Edit name       |\n");
-	printf("| 5. Edit description|\n");
-	printf("| 0. Cancel          |\n");
-	printf("|--------------------|\n");
-
-	printf("Enter selection: ");
-	scanf_s("%d", &inputNum);
-
-	// checks for what you want to change
-	// user can input any specific part of the product to edit
-	switch (inputNum)			
-	{
-	case 0:
-		return false;
-	case 1:
-		printf("\nEnter new price: ");
-		float tempPrice = 0;
-		scanf_s("%f", &tempPrice);
-		p->price = tempPrice;
-		break;
-	case 2:
-		printf("\nEnter new sku: ");
-		int tempSku = 0;
-		scanf_s("%d", &tempSku);
-		p->sku = tempSku;
-		break;
-	case 3:
-		printf("\nEnter new quantity: ");
-		int tempQuantity = 0;
-		scanf_s("%d", &tempQuantity);
-		p->quantity = tempQuantity;
-		break;
-	case 4:
-		printf("\nEnter new name: ");
-		char tempName[NAME_LENGTH] = { '\0' };
-		scanf_s("%s", tempName, NAME_LENGTH);
-		strncpy(p->name, tempName, NAME_LENGTH);
-		break;
-	case 5:
-		printf("\nEnter new description: ");
-		char tempDescription[DESCRIPTION_LENGTH] = { '\0' };
-		scanf_s("%s", tempDescription, DESCRIPTION_LENGTH);
-		strncpy(p->description, tempDescription, DESCRIPTION_LENGTH);
-		break;
-	default:
-		printf("\nInvalid Input");
-		return false;
-	}
-
-	return true;
-}
-
 // makes an exact copy of the product
 PRODUCT CopyProduct(PRODUCT p) {
 	return CreateProduct(p.price, p.sku,													
@@ -142,6 +82,6 @@ bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile) {
 	return true;
 }
 
-void DeleteProduct(PRODUCT p) {																
-	// this wont do much right now (or ever)
+void DeleteProduct(PRODUCT* p) {
+	// nothing here
 }

@@ -52,27 +52,27 @@ int main(void) {
 			// this makes a product but doesnt save it to a list
 		case 5: { // Add new product
 			printf("Enter your products information (sku name quantity price description): ");
-			// scanf("%d, %[^,], %d, %f, %[^\n]", &sku, name, &quantity, &price, description);
+			scanf("%d, %[^,], %d, %f, %[^\n]", &sku, name, &quantity, &price, description);
 			// %[^,] and %[^\n] mean everything is read there till that symbol is found\
 	
-			// product = CreateProduct(price, sku, quantity, name, description);
-			// Add(&productList, product);
+			product = CreateProduct(price, sku, quantity, name, description);
+			Add(&productList, product);
 
+			printf("Product created: \n");
+			printf("SKU: %d  Name: %s  Quantity: %d  Price: %.2f  Description: %s\n\n",
+					product.sku, product.name, product.quantity, product.price, product.description);
+
+			/*
 			Add(&productList, CreateProduct(1234, 1, 12, "matt", "mmmmmmmmmm")); // for testing
 			Add(&productList, CreateProduct(1234, 2, 12, "joe", "mmmmmmmmmm")); // for testing
 			Add(&productList, CreateProduct(1234, 3, 12, "john", "mmmmmmmmmm")); // for testing
 			Add(&productList, CreateProduct(1234, 5, 12, "evan", "mmmmmmmmmm")); // for testing
-
-			/*
-			printf("Product created: \n");
-			printf("SKU: %d  Name: %s  Quantity: %d  Price: %.2f  Description: %s\n\n",
-			product.sku, product.name, product.quantity, product.price, product.description);
 			*/
 
 			break;
 		}
 		case 4: { // Update product //TODO find what product to edit 
-			//UpdateProduct(productList);
+			UpdateProduct(productList);
 			break;
 		}
 		case 3: { // Search products (includes display 1 and display range)
@@ -80,6 +80,7 @@ int main(void) {
 			break;
 		}
 		case 2: { // Delete product
+			// Remove(productList);
 			break;
 		}
 		case 1: { // Display all products
