@@ -10,7 +10,7 @@
 // product list implementation
 // (most of this code is resued)
 
-void Add(PLISTNODE* list, PRODUCT i) {										
+void Add(PLISTNODE* list, PRODUCT i) {
 	PLISTNODE newNode = (PLISTNODE)malloc(sizeof(LISTNODE));				// makes new node and error checks
 	if (!newNode) {
 		fprintf(stderr, "error allocating memory\n");
@@ -24,6 +24,7 @@ void Add(PLISTNODE* list, PRODUCT i) {
 	}
 }
 
+
 // funtion to remove a node
 void Remove(PLISTNODE* list, PRODUCT i) {									
 	PLISTNODE current = *list;
@@ -35,6 +36,20 @@ void Display(PLISTNODE list) {
 	while (current != NULL) {
 		PrintProduct(current->data);
 		current = current->next;
+	}
+}
+
+void DisplayAll(PLISTNODE list) { // function to display all products
+	PLISTNODE current = list;
+
+	printf("\nAll Products:\n");
+	while (current != NULL) {
+		printf("sku: %d, name: %s, auantity: %d, price: %.2f, description: %s\n", // print the data of current
+			current->data.sku, current->data.name,
+			current->data.quantity, current->data.price,
+			current->data.description);
+
+		current = current->next; // continue to the next product
 	}
 }
 
@@ -175,11 +190,11 @@ bool SearchRangeOfProducts(PLISTNODE list) {
 // these funtions should properly down/upload all data
 void PrintListToStream(PLISTNODE list, const char* fileName) {
 	PLISTNODE current = list;
-	int i = GetListSize(current);
-	for (int x = 0; x < i; x ++) {
-	while (WriteProductToFile(fileName, &current->data))
-		current = current->next;
+	while (current != NULL) {
+		if (!WriteProductToFile(fileName, current->data))
+			break;
 	}
+	current = current->next;
 }
 
 void CreateListFromStream(PLISTNODE list, const char* fileName) {
@@ -191,7 +206,7 @@ void CreateListFromStream(PLISTNODE list, const char* fileName) {
 	}
 }
 
-int GetListSize(PLISTNODE* listHead) {										// gets size of the list
+int GetListSize(PLISTNODE listHead) {										// gets size of the list
 	int count = 0;
 	PLISTNODE current = listHead;
 	while (current != NULL) {
@@ -216,7 +231,7 @@ void FindProductToUpdate(PLISTNODE list) {
 
 		if (current->data.sku == sku && current->data.name == name) {
 			printf("Product found\n");
-			UpdateProduct(current);
+			UpdateProduct(&current->data);
 		}
 
 		else

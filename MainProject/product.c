@@ -86,20 +86,6 @@ PRODUCT CopyProduct(PRODUCT p) {
 		p.quantity,p.name, p.description);
 }
 
-void DisplayAll(PLISTNODE list) { // function to display all products
-	PLISTNODE current = list;
-
-	printf("\nAll Products:\n");
-	while (current != NULL) {
-		printf("sku: %d, name: %s, auantity: %d, price: %.2f, description: %s\n", // print the data of current
-			current->data.sku, current->data.name,
-			current->data.quantity, current->data.price,
-			current->data.description);
-		
-		current = current->next; // continue to the next product
-	}
-}
-
 // prints product
 void PrintProduct(PRODUCT p) {		
 	printf("sku: %d, name: %s, qauantity: %d, price: %.2f, description: %s\n", // print the data of located product
@@ -139,7 +125,8 @@ bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
 }
 
 // write a product to the file
-bool WriteProductToFile(const char* fileName, PRODUCT* p) {
+bool WriteProductToFile(const char* fileName, PRODUCT p) {
+	PRODUCT temp = p;
 	FILE* writeFile;
 	writeFile = fopen(fileName, "w");
 	if (writeFile == NULL) {
@@ -147,8 +134,8 @@ bool WriteProductToFile(const char* fileName, PRODUCT* p) {
 		exit(EXIT_FAILURE);
 	}
 
-	if (!fprintf(writeFile, "%f %d %d %s %s", p->price, p->sku,			// prints p's data to file
-		p->quantity, p->name, p->description))
+	if (!fprintf(writeFile, "%f %d %d %s %s", p.price, p.sku,			// prints p's data to file
+		p.quantity, p.name, p.description))
 		return false;
 
 

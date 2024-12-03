@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "Interface.h"			// this capitol makes me so mad :( - Matt
+#include "Interface.h"			// this capital makes me so mad :( - Matt
 #include "product.h"
 #include "productList.h"
 #include <stdio.h>
@@ -13,7 +13,8 @@
 // Main implementation for group project
 
 int main(void) {
-	PLISTNODE productList = NULL;
+	PRODUCT product;														// made temp product
+	PLISTNODE productList = NULL;											// made a temp list
 	FILE* originalFile;														// made temp files to create them
 	FILE* newFile;
 	const char* originalFileName = "ProductInfo.txt";						// saved the file names as const chars
@@ -47,23 +48,24 @@ int main(void) {
 		int inputNum = printMenu();
 
 		switch (inputNum) {				// checks for what you want to change
-
+		// this makes a product but doesnt save it to a list
 		case 5: { // Add new product
-
 			printf("Enter your products information (sku name quantity price description): ");
-			scanf("%d, %[^,], %d, %f, %[^\n]", &sku, name, &quantity, &price, description);
+			//scanf("%d, %[^,], %d, %f, %[^\n]", &sku, name, &quantity, &price, description);
 			// %[^,] and %[^\n] mean everything is read there till that symbol is found
+			//product = CreateProduct(price, sku, quantity, name, description);
+			//Add(&productList, product);
+			Add(&productList, CreateProduct(1234, 11111, 12, "matt", "mmmmmmmmmm"));
 
-			PRODUCT product = CreateProduct(price, sku, quantity, name, description);
 
 			printf("Product created: \n");
-			printf("SKU: %d  Name: %s  Quantity: %d  Price: %.2f  Description: %s\n\n",
-				product.sku, product.name, product.quantity, product.price, product.description);
+			//printf("SKU: %d  Name: %s  Quantity: %d  Price: %.2f  Description: %s\n\n",
+			//	product.sku, product.name, product.quantity, product.price, product.description);
 
 			break;
 		}
-		case 4: { // Update product //TODO find what product to edit
-			UpdateProduct(productList);
+		case 4: { // Update product //TODO find what product to edit 
+			//UpdateProduct(productList);
 			break;
 		}
 		case 3: { // Search products (includes display 1 and display range)
