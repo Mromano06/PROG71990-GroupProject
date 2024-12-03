@@ -103,10 +103,10 @@ bool ReadProductFromFile(const char* fileName, PRODUCT current, FILE* readFile) 
 		desc[DESCRIPTION_LENGTH] = { '\0' };
 
 	// float Price, int Sku, int Quantity, char Name[], char Desc[]
-	if (fscanf(readFile, "%f\n%d\n%d\n%s\n%s\n", &price, &sku,				// reads data from file and saves into sent product
+	if (fscanf(readFile, "%f\n%d\n%d\n%s\n%s\n", &current.price, &sku,				// reads data from file and saves into sent product
 		&quantity, name, desc) == 5) {
 		current.price = price;
-		current.sku = sku;
+		current.price = sku;
 		current.quantity = quantity;
 		strncpy(current.name, name, NAME_LENGTH);
 		strncpy(current.description, desc, DESCRIPTION_LENGTH);

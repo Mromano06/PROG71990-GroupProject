@@ -232,11 +232,11 @@ void CreateListFromStream(PLISTNODE list, const char* fileName) {
 		exit(EXIT_FAILURE);
 	}
 	PLISTNODE current = list;
-	do {
+	while (current != NULL) {
 		if (!ReadProductFromFile(fileName, current->data, readFile))
 			break;
 		current = current->next;
-	} while (current != NULL);
+	}
 
 	fclose(readFile);
 }
