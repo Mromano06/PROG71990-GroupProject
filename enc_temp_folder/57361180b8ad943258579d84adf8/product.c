@@ -95,7 +95,6 @@ void PrintProduct(PRODUCT p) {
 // reads a product from the file 
 // (info held in the file will most likely be held in a list,
 // formatting an dprinting will ony be used in the interface/UI)
-//TODO figure out why im getting exeption here
 bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
 	FILE* readFile;
 	readFile= fopen(fileName, "r");															

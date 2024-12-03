@@ -200,8 +200,7 @@ void PrintListToStream(PLISTNODE list, const char* fileName) {
 void CreateListFromStream(PLISTNODE list, const char* fileName) {
 	PLISTNODE current = list;
 	do {
-		current->data = ReadProductFromFile(fileName);
-		if (current == NULL)
+		if (!ReadProductFromFile(fileName, &current->data))
 			break;
 		current = current->next;
 	} while (current != NULL);

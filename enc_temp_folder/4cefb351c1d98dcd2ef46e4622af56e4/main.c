@@ -35,8 +35,7 @@ int main(void) {
 	fclose(originalFile);
 	fclose(newFile);
 
-	// giving expetion anytime its ran
-	//CreateListFromStream(productList, originalFileName);
+	CreateListFromStream(productList, originalFileName);
 
 	printWelcome();
 	while (continueProgram) {

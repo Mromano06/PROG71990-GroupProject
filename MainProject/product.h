@@ -27,7 +27,7 @@ bool UpdateProduct(PRODUCT* p);
 
 void PrintProduct(PRODUCT p); 
 
-PRODUCT ReadProductFromFile(const char* fileName);
+bool ReadProductFromFile(const char* fileName, PRODUCT* p);
 
 bool WriteProductToFile(const char* fileName, PRODUCT p);
 
