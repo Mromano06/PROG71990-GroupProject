@@ -14,7 +14,6 @@
 
 PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc[]) {
 	PRODUCT newProduct;
-
 	newProduct.price = Price;
 	newProduct.sku = Sku;
 	newProduct.quantity = Quantity;
@@ -128,7 +127,6 @@ bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
 
 // write a product to the file
 bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile) {
-
 	if (!fprintf(writeFile, "%f\n%d\n%d\n%s\n%s\n", p.price, p.sku,			// prints p's data to file
 		p.quantity, p.name, p.description)) {
 		fclose(writeFile);
@@ -136,6 +134,10 @@ bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile) {
 	}
 
 	return true;
+}
+
+bool CompareProduct(PRODUCT lhs, PRODUCT rhs) {
+	return (lhs.sku == rhs.sku);
 }
 
 void DeleteProduct(PRODUCT p) {																

@@ -28,6 +28,26 @@ void Add(PLISTNODE* list, PRODUCT i) {
 // funtion to remove a node
 void Remove(PLISTNODE* list, PRODUCT i) {									
 	PLISTNODE current = *list;
+	// if they match remove it
+	if (current != NULL && CompareProduct(current->data, i)) {
+		*list = current->next;
+		free(current);
+		return;
+	}
+
+	// loops through all
+	PLISTNODE prev = NULL;
+	while (current != NULL && !CompareProduct(current->data, i)) {
+		prev = current;
+		current = current->next;
+	}
+
+	if (current == NULL)
+		return;
+	else {
+		prev->next = current->next;
+		free(current);
+	}
 }
 
 //  prints all nodes in the list

@@ -59,7 +59,6 @@ int main(void) {
 			// 
 			// for testing // Add(&productList, CreateProduct(1234, 11111, 12, "matt", "mmmmmmmmmm"));
 
-
 			printf("Product created: \n");
 			printf("SKU: %d  Name: %s  Quantity: %d  Price: %.2f  Description: %s\n\n",
 			product.sku, product.name, product.quantity, product.price, product.description);
@@ -75,6 +74,8 @@ int main(void) {
 			break;
 		}
 		case 2: { // Delete product
+
+			//Remove(productList, current->data); will work soon
 			break;
 		}
 		case 1: { // Display all products
