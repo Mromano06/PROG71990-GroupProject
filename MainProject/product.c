@@ -95,7 +95,8 @@ void PrintProduct(PRODUCT p) {
 // reads a product from the file 
 // (info held in the file will most likely be held in a list,
 // formatting an dprinting will ony be used in the interface/UI)
-bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
+PRODUCT ReadProductFromFile(const char* fileName) {
+	PRODUCT temp;
 	FILE* readFile;
 	readFile= fopen(fileName, "r");															
 	if (readFile == NULL) {
@@ -109,19 +110,17 @@ bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
 		desc[DESCRIPTION_LENGTH] = { '\0' };
 
 	// float Price, int Sku, int Quantity, char Name[], char Desc[]
-	if (fscanf(readFile, "%f %d %d %s %s", &price, &sku,				// reads data from file and saves into sent product
+	if (fscanf(readFile, "%f\n%d\n%d\n%s\n%s\n", &price, &sku,				// reads data from file and saves into sent product
 		&quantity, name, desc) == 5) {	
-		p->price = price;
-		p->sku = sku;
-		p->quantity = quantity;
-		strncpy(p->name, name, NAME_LENGTH);
-		strncpy(p->description, desc, DESCRIPTION_LENGTH);
+		temp.price = price;
+		temp.sku = sku;
+		temp.quantity = quantity;
+		strncpy(temp.name, name, NAME_LENGTH);
+		strncpy(temp.description, desc, DESCRIPTION_LENGTH);
 	}
-	else
-		return false;
 
-
-	return true;
+	fclose(readFile);
+	return temp;
 }
 
 // write a product to the file
@@ -134,11 +133,13 @@ bool WriteProductToFile(const char* fileName, PRODUCT p) {
 		exit(EXIT_FAILURE);
 	}
 
-	if (!fprintf(writeFile, "%f %d %d %s %s", p.price, p.sku,			// prints p's data to file
-		p.quantity, p.name, p.description))
+	if (!fprintf(writeFile, "%f\n%d\n%d\n%s\n%s\n", p.price, p.sku,			// prints p's data to file
+		p.quantity, p.name, p.description)) {
+		fclose(writeFile);
 		return false;
+	}
 
-
+	fclose(writeFile);
 	return true;
 }
 
