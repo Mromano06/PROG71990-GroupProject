@@ -102,7 +102,7 @@ void DisplayAll(PLISTNODE list) { // function to display all products
 
 // prints product
 void PrintProduct(PRODUCT p) {		
-	printf("sku: %d, name: %s, auantity: %d, price: %.2f, description: %s\n", // print the data of located product
+	printf("sku: %d, name: %s, qauantity: %d, price: %.2f, description: %s\n", // print the data of located product
 		p.sku, p.name, p.quantity, p.price, p.description);
     }
 

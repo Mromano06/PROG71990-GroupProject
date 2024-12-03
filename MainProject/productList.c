@@ -48,6 +48,7 @@ void DestroyList(PLISTNODE* list) {											// be careful becasue this doesn't
 	}
 }
 
+//TODO make this actually return to the main menu
 bool SearchProductMenu(PLISTNODE list) {
 
 	bool continueSearch = true;
@@ -86,6 +87,7 @@ bool SearchProductMenu(PLISTNODE list) {
 	}
 }
 
+//TODO thisjust doesnt work lol, won't print our product found
 bool SearchSingleProduct(PLISTNODE list) {
 	int sku = 0;
 	char name[NAME_LENGTH] = { '\0' };
@@ -101,11 +103,15 @@ bool SearchSingleProduct(PLISTNODE list) {
 		if (current->data.sku == sku && current->data.name == name) {
 			printf("Product found: \n");
 			PrintProduct(current->data);
+			return true;
 		}
 
 		else
 			current = current->next; // continue to the next product
 	}
+	printf("Product NOT found\n");
+
+	return false;
 }
 
 bool SearchRangeOfProducts(PLISTNODE list) {
