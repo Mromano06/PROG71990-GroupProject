@@ -216,7 +216,7 @@ void PrintListToStream(PLISTNODE list, const char* fileName) {
 	}
 	PLISTNODE current = list;
 	while (current != NULL) {
-		if (!WriteProductToFile(fileName, current->data, writeFile)) {}
+		if (!WriteProductToFile(fileName, current->data, writeFile))
 			break;
 		current = current->next;
 	}
