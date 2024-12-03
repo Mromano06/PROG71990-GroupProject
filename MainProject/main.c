@@ -50,13 +50,15 @@ int main(void) {
 
 		case 5: { // Add new product
 
-			printf("Enter your products information (sku, name, quantity, price): ");
-			scanf_s("%d, %s, %d, %f", &sku, name, NAME_LENGTH, &quantity, &price);
+			printf("Enter your products information (sku name quantity price description): ");
+			scanf("%d, %[^,], %d, %f, %[^\n]", &sku, name, &quantity, &price, description);
+			// %[^,] and %[^\n] mean everything is read there till that symbol is found
 
-			printf("Enter the description of this product (Max 100 char): ");
-			scanf_s("%s", description, DESCRIPTION_LENGTH-1); 
+			PRODUCT product = CreateProduct(price, sku, quantity, name, description);
 
-			CreateProduct(price, sku, quantity, name, description);
+			printf("Product created: \n");
+			printf("SKU: %d  Name: %s  Quantity: %d  Price: %.2f  Description: %s\n\n",
+				product.sku, product.name, product.quantity, product.price, product.description);
 
 			break;
 		}

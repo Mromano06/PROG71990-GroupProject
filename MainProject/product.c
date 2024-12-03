@@ -18,8 +18,12 @@ PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc
 	newProduct.price = Price;
 	newProduct.sku = Sku;
 	newProduct.quantity = Quantity;
-	strncpy(newProduct.name, Name, NAME_LENGTH);
-	strncpy(newProduct.description, Desc, DESCRIPTION_LENGTH);
+
+	strncpy(newProduct.name, Name, NAME_LENGTH - 1);
+	newProduct.name[NAME_LENGTH - 1] = '\0'; // null termination
+
+	strncpy(newProduct.description, Desc, DESCRIPTION_LENGTH - 1);
+	newProduct.description[DESCRIPTION_LENGTH - 1] = '\0'; // null termination
 
 	return newProduct;
 }
