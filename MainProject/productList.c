@@ -24,7 +24,6 @@ void Add(PLISTNODE* list, PRODUCT i) {
 	}
 }
 
-
 // funtion to remove a node
 void Remove(PLISTNODE* list, PRODUCT i) {									
 	PLISTNODE current = *list;
@@ -85,7 +84,7 @@ bool SearchProductMenu(PLISTNODE list) {
 		switch (searchType)
 		{
 		case 2: // search 1 item
-			SearchSingleProduct(list); //TODO: i dunno what to run though this func yet (same with the search range)
+			SearchSingleProduct(list);
 
 			break;
 		case 1:	// search range of items
@@ -93,7 +92,7 @@ bool SearchProductMenu(PLISTNODE list) {
 
 			break;
 		case 0: // return to previous menu
-			searchType = false;
+			continueSearch = false;
 			break;
 		default:
 			printf("\nInvalid Input");
@@ -102,20 +101,19 @@ bool SearchProductMenu(PLISTNODE list) {
 	}
 }
 
-//TODO thisjust doesnt work lol, won't print our product found
 bool SearchSingleProduct(PLISTNODE list) {
 	int sku = 0;
 	char name[NAME_LENGTH] = { '\0' };
 	PLISTNODE current = list;
 
-	printf("Enter products sku and name (sku name): ");
-	if (scanf("%d %s", &sku, name) != 2) {
+	printf("Enter products sku: ");
+	if (scanf("%d", &sku) != 2) {
 		perror("Invalid input");
 	}
 
 	while (current != NULL) {
 
-		if (current->data.sku == sku && current->data.name == name) {
+		if (current->data.sku == sku) {
 			printf("Product found: \n");
 			PrintProduct(current->data);
 			return true;
@@ -130,60 +128,54 @@ bool SearchSingleProduct(PLISTNODE list) {
 }
 
 bool SearchRangeOfProducts(PLISTNODE list) {
-	int skuStart, skuEnd = 0;			// create variables for the start and end of the range
-	char nameStart[NAME_LENGTH] = { '\0' },
-		nameEnd[NAME_LENGTH] = { '\0' };
-
-	int skuTemp1 = 0;
-	int skuTemp2 = 0;			// create variables for the users sku inputs to verify start and end
-	char nameTemp1[NAME_LENGTH] = { '\0' },
-		nameTemp2[NAME_LENGTH] = { '\0' };
+	int skuStart = 0, skuEnd = 0;			// create variables for the start and end of the range
+	int skuTemp1 = 0, skuTemp2 = 0;			// create variables for the users sku inputs to verify start and end
+	
 	PLISTNODE current = list;
 
 	// current = head; // TODO
 
 	bool start = false, end = false;
 
-	printf("Enter range you would like to search, by products skus and names (sku1 name1, sku2 name2): ");
-	if (scanf("%d %s, %d %s", &skuTemp1, nameTemp1, &skuTemp2, nameTemp2) != 4) {
+	printf("Enter range you would like to search, by products sku's (sku sku): ");
+	if (scanf("%d %d", &skuTemp1, &skuTemp2) != 2) {
 		printf("Invalid input");
 		return false;
 	}
 
 	if (skuTemp1 < skuTemp2) { // set the lower sku to the start (if we end up sorting by highest to lowest reverse this)
 		skuStart = skuTemp1;
-		strncpy(nameStart, nameTemp1, NAME_LENGTH);
+		skuEnd = skuTemp2;
 	}
 	else {
 		skuStart = skuTemp2;
-		strncpy(nameStart, nameTemp2, NAME_LENGTH);
+		skuEnd = skuTemp1;
 	}
 
 	while (current != NULL) {
 
-		if (current->data.sku == skuStart && current->data.name == nameStart) // find the start product first
+		if (current->data.sku == skuStart) // find the start product first
 			start = true;
-		if (current->data.sku == skuEnd && current->data.name == nameEnd)
+		if (current->data.sku == skuEnd)
 			end = true;
-
-		else
-			current = current->next; // continue to the next product
+		
+		current = current->next; // continue to the next product
 	}
 
 	if (start && end) {// if both the start product and end product are found then continue 
-		// current = head; // TODO: create a pointer in place of head that points to the start of the listnodes 
-		// might work now
 		current = list;
-		while (current != NULL && current->data.sku != skuStart) { // loop through the nodes till we find the one that has our sku 
-			current = current->next;							   // this makes current land on this start product
-		}
-		while (current != NULL && current->data.sku <= skuEnd) {
-			PrintProduct(current->data);
-			current = current->next;
-		}
-		return true;
-	}
 
+		while (current != NULL) {
+			if (current->data.sku >= skuStart && current->data.sku <= skuEnd)
+				PrintProduct(current->data);
+		
+				current = current->next;
+		}
+
+		return true;
+	} 
+
+	printf("1 or more products not found");
 	return false;
 }
 
