@@ -78,8 +78,7 @@ bool UpdateProduct(PRODUCT* p) {
 
 // makes an exact copy of the product
 PRODUCT CopyProduct(PRODUCT p) {
-	return CreateProduct(p.price, p.sku,													
-		p.quantity,p.name, p.description);
+	return CreateProduct(p.price, p.sku, p.quantity,p.name, p.description);
 }
 
 void DisplayAll(PLISTNODE list) { // function to display all products

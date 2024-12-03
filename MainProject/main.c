@@ -47,17 +47,16 @@ int main(void) {
 
 		int inputNum = printMenu();
 
-		switch (inputNum) {				// checks for what you want to change
+		switch (inputNum) {	// checks for what you want to change
 
 		case 5: { // Add new product
 
+			PRODUCT temp;
 			printf("Enter your products information (sku, name, quantity, price): ");
-			scanf_s("%d, %s, %d, %f", &sku, name, NAME_LENGTH, &quantity, &price);
+			scanf_s("%d, %s, %d, %f, %s", temp.sku, temp.name, NAME_LENGTH, temp.quantity,
+				temp.price, temp.description, DESCRIPTION_LENGTH-1); 
 
-			printf("Enter the description of this product (Max 100 char): ");
-			scanf_s("%s", description, DESCRIPTION_LENGTH-1); 
-
-			CreateProduct(price, sku, quantity, name, description);
+			Add(&productList, temp);
 
 			break;
 		}

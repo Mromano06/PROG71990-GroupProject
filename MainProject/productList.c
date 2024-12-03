@@ -15,7 +15,7 @@ void Add(PLISTNODE* list, PRODUCT i) {
 		fprintf(stderr, "error allocating memory\n");
 		exit(EXIT_FAILURE);
 	}
-	else {																	// makes a copy of the student to point to
+	else {																	// makes a copy of the product to point to
 		newNode->data = CopyProduct(i);
 		newNode->next = *list;
 
