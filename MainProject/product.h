@@ -1,7 +1,9 @@
 #pragma once
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 
 // group4 - prog71990f24 - group project
 
@@ -29,6 +31,6 @@ void PrintProduct(PRODUCT p);
 
 bool ReadProductFromFile(const char* fileName, PRODUCT* p);
 
-bool WriteProductToFile(const char* fileName, PRODUCT p);
+bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile);
 
 void DeleteProduct(PRODUCT p);

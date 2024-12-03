@@ -189,12 +189,20 @@ bool SearchRangeOfProducts(PLISTNODE list) {
 
 // these funtions should properly down/upload all data
 void PrintListToStream(PLISTNODE list, const char* fileName) {
+	FILE* writeFile;
+	writeFile = fopen(fileName, "w");
+	if (writeFile == NULL) {
+		perror("Error opening original file");
+		exit(EXIT_FAILURE);
+	}
 	PLISTNODE current = list;
 	while (current != NULL) {
-		if (!WriteProductToFile(fileName, current->data))
+		if (!WriteProductToFile(fileName, current->data, writeFile)) {}
 			break;
 		current = current->next;
 	}
+
+	fclose(writeFile);
 }
 
 void CreateListFromStream(PLISTNODE list, const char* fileName) {

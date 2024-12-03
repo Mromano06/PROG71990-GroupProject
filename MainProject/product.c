@@ -95,7 +95,7 @@ void PrintProduct(PRODUCT p) {
 // reads a product from the file 
 // (info held in the file will most likely be held in a list,
 // formatting an dprinting will ony be used in the interface/UI)
-//TODO figure out why im getting exeption here
+//TODO figure out why im getting exception here
 bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
 	FILE* readFile;
 	readFile= fopen(fileName, "r");															
@@ -127,13 +127,7 @@ bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
 }
 
 // write a product to the file
-bool WriteProductToFile(const char* fileName, PRODUCT p) {
-	FILE* writeFile;
-	writeFile = fopen(fileName, "w");
-	if (writeFile == NULL) {
-		perror("Error opening original file");
-		exit(EXIT_FAILURE);
-	}
+bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile) {
 
 	if (!fprintf(writeFile, "%f\n%d\n%d\n%s\n%s\n", p.price, p.sku,			// prints p's data to file
 		p.quantity, p.name, p.description)) {
@@ -141,7 +135,6 @@ bool WriteProductToFile(const char* fileName, PRODUCT p) {
 		return false;
 	}
 
-	fclose(writeFile);
 	return true;
 }
 

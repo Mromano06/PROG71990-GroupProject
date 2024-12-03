@@ -52,16 +52,17 @@ int main(void) {
 		// this makes a product but doesnt save it to a list
 		case 5: { // Add new product
 			printf("Enter your products information (sku name quantity price description): ");
-			//scanf("%d, %[^,], %d, %f, %[^\n]", &sku, name, &quantity, &price, description);
+			scanf("%d, %[^,], %d, %f, %[^\n]", &sku, name, &quantity, &price, description);
 			// %[^,] and %[^\n] mean everything is read there till that symbol is found
-			//product = CreateProduct(price, sku, quantity, name, description);
-			//Add(&productList, product);
-			Add(&productList, CreateProduct(1234, 11111, 12, "matt", "mmmmmmmmmm"));
+			product = CreateProduct(price, sku, quantity, name, description);
+			Add(&productList, product);
+			// 
+			// for testing // Add(&productList, CreateProduct(1234, 11111, 12, "matt", "mmmmmmmmmm"));
 
 
 			printf("Product created: \n");
-			//printf("SKU: %d  Name: %s  Quantity: %d  Price: %.2f  Description: %s\n\n",
-			//	product.sku, product.name, product.quantity, product.price, product.description);
+			printf("SKU: %d  Name: %s  Quantity: %d  Price: %.2f  Description: %s\n\n",
+			product.sku, product.name, product.quantity, product.price, product.description);
 
 			break;
 		}
