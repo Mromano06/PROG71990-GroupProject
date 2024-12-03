@@ -29,8 +29,10 @@ bool UpdateProduct(PRODUCT* p);
 
 void PrintProduct(PRODUCT p); 
 
-bool ReadProductFromFile(const char* fileName, PRODUCT* p);
+bool ReadProductFromFile(const char* fileName, PRODUCT p, FILE* readFile);
 
 bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile);
+
+bool CompareProduct(PRODUCT lhs, PRODUCT rhs);
 
 void DeleteProduct(PRODUCT p);

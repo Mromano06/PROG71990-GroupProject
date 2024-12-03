@@ -27,6 +27,26 @@ void Add(PLISTNODE* list, PRODUCT i) {
 // funtion to remove a node
 void Remove(PLISTNODE* list, PRODUCT i) {									
 	PLISTNODE current = *list;
+	// if they match remove it
+	if (current != NULL && CompareProduct(current->data, i)) {
+		*list = current->next;
+		free(current);
+		return;
+	}
+
+	// loops through all
+	PLISTNODE prev = current;
+	while (current != NULL && !CompareProduct(current->data, i)) {
+		prev = current;
+		current = current->next;
+	}
+
+	if (current == NULL)
+		return;
+	else {
+		prev->next = current->next;
+		free(current);
+	}
 }
 
 //  prints all nodes in the list
@@ -192,7 +212,7 @@ void PrintListToStream(PLISTNODE list, const char* fileName) {
 	}
 	PLISTNODE current = list;
 	while (current != NULL) {
-		if (!WriteProductToFile(fileName, current->data, writeFile)) {}
+		if (!WriteProductToFile(fileName, current->data, writeFile))
 			break;
 		current = current->next;
 	}
@@ -201,12 +221,20 @@ void PrintListToStream(PLISTNODE list, const char* fileName) {
 }
 
 void CreateListFromStream(PLISTNODE list, const char* fileName) {
+	FILE* readFile;
+	readFile = fopen(fileName, "r");
+	if (readFile == NULL) {
+		perror("Error opening original file");
+		exit(EXIT_FAILURE);
+	}
 	PLISTNODE current = list;
-	do {
-		if (!ReadProductFromFile(fileName, &current->data))
+	while (current != NULL) {
+		if (!ReadProductFromFile(fileName, current->data, readFile))
 			break;
 		current = current->next;
-	} while (current != NULL);
+	}
+
+	fclose(readFile);
 }
 
 int GetListSize(PLISTNODE listHead) {										// gets size of the list

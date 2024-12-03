@@ -37,6 +37,8 @@ int main(void) {
 
 	// giving expetion anytime its ran
 	//CreateListFromStream(productList, originalFileName);
+	Add(&productList, CreateProduct(1234, 11111, 12, "matt", "mmmmmmmmmm"));
+	Add(&productList, CreateProduct(1214, 13311, 122, "Mnee", "e21sdafw"));
 
 	printWelcome();
 	while (continueProgram) {
@@ -81,6 +83,7 @@ int main(void) {
 		}
 		case 2: { // Delete product
 			// Remove(productList);
+			//Remove(productList, current->data); will work soon
 			break;
 		}
 		case 1: { // Display all products

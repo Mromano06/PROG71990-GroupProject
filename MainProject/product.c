@@ -14,7 +14,6 @@
 
 PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc[]) {
 	PRODUCT newProduct;
-
 	newProduct.price = Price;
 	newProduct.sku = Sku;
 	newProduct.quantity = Quantity;
@@ -40,39 +39,31 @@ void PrintProduct(PRODUCT p) {
 // (info held in the file will most likely be held in a list,
 // formatting an dprinting will ony be used in the interface/UI)
 //TODO figure out why im getting exception here
-bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
-	FILE* readFile;
-	readFile= fopen(fileName, "r");															
-	if (readFile == NULL) {
-		perror("Error opening original file");
-		exit(EXIT_FAILURE);
-	}
-
-	float price = 0;													// temp variables for saving the product
+bool ReadProductFromFile(const char* fileName, PRODUCT current, FILE* readFile) {
+	PRODUCT temp;
+	float price = 0;														// temp variables for saving the product
 	int sku = 0, quantity = 0;
 	char name[NAME_LENGTH] = { '\0' },
 		desc[DESCRIPTION_LENGTH] = { '\0' };
 
 	// float Price, int Sku, int Quantity, char Name[], char Desc[]
-	if (fscanf(readFile, "%f\n%d\n%d\n%s\n%s\n", &price, &sku,				// reads data from file and saves into sent product
+	if (fscanf(readFile, "%f\n%d\n%d\n%s\n%s\n", &current.price, &sku,				// reads data from file and saves into sent product
 		&quantity, name, desc) == 5) {
-		p->price = price;
-		p->sku = sku;
-		p->quantity = quantity;
-		strncpy(p->name, name, NAME_LENGTH);
-		strncpy(p->description, desc, DESCRIPTION_LENGTH);
+		current.price = price;
+		current.price = sku;
+		current.quantity = quantity;
+		strncpy(current.name, name, NAME_LENGTH);
+		strncpy(current.description, desc, DESCRIPTION_LENGTH);
 	}
 	else{
 		return false;
 	}
-	fclose(readFile);
 
 	return true;
 }
 
 // write a product to the file
 bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile) {
-
 	if (!fprintf(writeFile, "%f\n%d\n%d\n%s\n%s\n", p.price, p.sku,			// prints p's data to file
 		p.quantity, p.name, p.description)) {
 		fclose(writeFile);
@@ -82,6 +73,11 @@ bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile) {
 	return true;
 }
 
+
 void DeleteProduct(PRODUCT* p) {
-	// nothing here
+	// this wont do much right now (or ever)
+}
+
+bool CompareProduct(PRODUCT lhs, PRODUCT rhs) {
+	return (lhs.sku == rhs.sku);
 }

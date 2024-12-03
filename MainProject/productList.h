@@ -1,8 +1,13 @@
 #pragma once
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <stdlib.h>
 #include "product.h"
 
 // group4 - 71990f24 - group project
-// 
+
 // product linked list interface
 
 typedef struct productListNode {
