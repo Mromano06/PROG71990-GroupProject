@@ -233,7 +233,7 @@ void CreateListFromStream(PLISTNODE list, const char* fileName) {
 	}
 	PLISTNODE current = list;
 	do {
-		if (!ReadProductFromFile(fileName, current, readFile))
+		if (!ReadProductFromFile(fileName, current->data, readFile))
 			break;
 		current = current->next;
 	} while (current != NULL);

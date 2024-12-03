@@ -1,6 +1,5 @@
 #pragma once
 
-#include "productList.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -30,7 +29,7 @@ bool UpdateProduct(PRODUCT* p);
 
 void PrintProduct(PRODUCT p); 
 
-bool ReadProductFromFile(const char* fileName, PLISTNODE p, FILE* readFile);
+bool ReadProductFromFile(const char* fileName, PRODUCT p, FILE* readFile);
 
 bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile);
 

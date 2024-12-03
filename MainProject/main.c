@@ -36,7 +36,7 @@ int main(void) {
 	fclose(newFile);
 
 	// giving expetion anytime its ran
-	CreateListFromStream(productList, originalFileName);
+	//CreateListFromStream(productList, originalFileName);
 	Add(&productList, CreateProduct(1234, 11111, 12, "matt", "mmmmmmmmmm"));
 	Add(&productList, CreateProduct(1214, 13311, 122, "Mnee", "e21sdafw"));
 
