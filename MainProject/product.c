@@ -18,12 +18,8 @@ PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc
 	newProduct.price = Price;
 	newProduct.sku = Sku;
 	newProduct.quantity = Quantity;
-
 	strncpy(newProduct.name, Name, NAME_LENGTH - 1);
-	newProduct.name[NAME_LENGTH - 1] = '\0'; // null termination
-
 	strncpy(newProduct.description, Desc, DESCRIPTION_LENGTH - 1);
-	newProduct.description[DESCRIPTION_LENGTH - 1] = '\0'; // null termination
 
 	return newProduct;
 }
@@ -31,9 +27,17 @@ PRODUCT CreateProduct(float Price, int Sku, int Quantity, char Name[], char Desc
 // allows the user to update the selected kind of data
 bool UpdateProduct(PRODUCT* p) {
 	int inputNum = 0;
-	printf("1. Edit price\n2. Edit sku\n3. Edit quantity\n"
-		   "4. Edit the products name\n5. Edit the products description"
-		   "\n0. Cancel\nEnter selection: ");
+
+	printf("|--------------------|\n");
+	printf("| 1. Edit price      |\n");
+	printf("| 2. Edit sku        |\n");
+	printf("| 3. Edit quantity   |\n");
+	printf("| 4. Edit name       |\n");
+	printf("| 5. Edit description|\n");
+	printf("| 0. Cancel          |\n");
+	printf("|--------------------|\n");
+
+	printf("Enter selection: ");
 	scanf_s("%d", &inputNum);
 
 	// checks for what you want to change
