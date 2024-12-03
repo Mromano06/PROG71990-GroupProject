@@ -82,8 +82,7 @@ int main(void) {
 			break;
 		}
 		case 2: { // Delete product
-			// Remove(productList);
-			//Remove(productList, current->data); will work soon
+			Remove(productList); 
 			break;
 		}
 		case 1: { // Display all products

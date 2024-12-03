@@ -17,7 +17,7 @@ typedef struct productListNode {
 
 void Add(PLISTNODE* list, PRODUCT i);
 
-void Remove(PLISTNODE* list, PRODUCT i);
+void Remove(PLISTNODE* list);
 
 void Display(PLISTNODE list);
 
