@@ -95,8 +95,9 @@ void PrintProduct(PRODUCT p) {
 // (info held in the file will most likely be held in a list,
 // formatting an dprinting will ony be used in the interface/UI)
 //TODO figure out why im getting exception here
-bool ReadProductFromFile(const char* fileName, PRODUCT* p, FILE* readFile) {
-	float price = 0;													// temp variables for saving the product
+bool ReadProductFromFile(const char* fileName, PLISTNODE current, FILE* readFile) {
+	PRODUCT temp;
+	float price = 0;														// temp variables for saving the product
 	int sku = 0, quantity = 0;
 	char name[NAME_LENGTH] = { '\0' },
 		desc[DESCRIPTION_LENGTH] = { '\0' };
@@ -104,11 +105,11 @@ bool ReadProductFromFile(const char* fileName, PRODUCT* p, FILE* readFile) {
 	// float Price, int Sku, int Quantity, char Name[], char Desc[]
 	if (fscanf(readFile, "%f\n%d\n%d\n%s\n%s\n", &price, &sku,				// reads data from file and saves into sent product
 		&quantity, name, desc) == 5) {
-		p->price = price;
-		p->sku = sku;
-		p->quantity = quantity;
-		strncpy(p->name, name, NAME_LENGTH);
-		strncpy(p->description, desc, DESCRIPTION_LENGTH);
+		current->data.price = price;
+		current->data.sku = sku;
+		current->data.quantity = quantity;
+		strncpy(current->data.name, name, NAME_LENGTH);
+		strncpy(current->data.description, desc, DESCRIPTION_LENGTH);
 	}
 	else{
 		return false;
