@@ -37,6 +37,8 @@ int main(void) {
 
 	// giving expetion anytime its ran
 	//CreateListFromStream(productList, originalFileName);
+	Add(&productList, CreateProduct(1234, 11111, 12, "matt", "mmmmmmmmmm"));
+	Add(&productList, CreateProduct(1214, 13311, 122, "Mnee", "e21sdafw"));
 
 	printWelcome();
 	while (continueProgram) {
@@ -56,8 +58,6 @@ int main(void) {
 			// %[^,] and %[^\n] mean everything is read there till that symbol is found
 			product = CreateProduct(price, sku, quantity, name, description);
 			Add(&productList, product);
-			// 
-			// for testing // Add(&productList, CreateProduct(1234, 11111, 12, "matt", "mmmmmmmmmm"));
 
 			printf("Product created: \n");
 			printf("SKU: %d  Name: %s  Quantity: %d  Price: %.2f  Description: %s\n\n",

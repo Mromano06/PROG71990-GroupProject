@@ -95,14 +95,7 @@ void PrintProduct(PRODUCT p) {
 // (info held in the file will most likely be held in a list,
 // formatting an dprinting will ony be used in the interface/UI)
 //TODO figure out why im getting exception here
-bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
-	FILE* readFile;
-	readFile= fopen(fileName, "r");															
-	if (readFile == NULL) {
-		perror("Error opening original file");
-		exit(EXIT_FAILURE);
-	}
-
+bool ReadProductFromFile(const char* fileName, PRODUCT* p, FILE* readFile) {
 	float price = 0;													// temp variables for saving the product
 	int sku = 0, quantity = 0;
 	char name[NAME_LENGTH] = { '\0' },
@@ -120,7 +113,6 @@ bool ReadProductFromFile(const char* fileName, PRODUCT* p) {
 	else{
 		return false;
 	}
-	fclose(readFile);
 
 	return true;
 }

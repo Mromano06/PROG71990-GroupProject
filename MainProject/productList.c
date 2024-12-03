@@ -24,7 +24,6 @@ void Add(PLISTNODE* list, PRODUCT i) {
 	}
 }
 
-
 // funtion to remove a node
 void Remove(PLISTNODE* list, PRODUCT i) {									
 	PLISTNODE current = *list;
@@ -36,7 +35,7 @@ void Remove(PLISTNODE* list, PRODUCT i) {
 	}
 
 	// loops through all
-	PLISTNODE prev = NULL;
+	PLISTNODE prev = current;
 	while (current != NULL && !CompareProduct(current->data, i)) {
 		prev = current;
 		current = current->next;
@@ -226,12 +225,20 @@ void PrintListToStream(PLISTNODE list, const char* fileName) {
 }
 
 void CreateListFromStream(PLISTNODE list, const char* fileName) {
+	FILE* readFile;
+	readFile = fopen(fileName, "r");
+	if (readFile == NULL) {
+		perror("Error opening original file");
+		exit(EXIT_FAILURE);
+	}
 	PLISTNODE current = list;
 	do {
-		if (!ReadProductFromFile(fileName, &current->data))
+		if (!ReadProductFromFile(fileName, &current->data, readFile))
 			break;
 		current = current->next;
 	} while (current != NULL);
+
+	fclose(readFile);
 }
 
 int GetListSize(PLISTNODE listHead) {										// gets size of the list
