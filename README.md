@@ -1,5 +1,13 @@
+Division of labour within the group:
 
-When printing/download data to a file the file should be formatted as such:
+Evan - Worked on the UI, display functions, search functions, add function, and most importantly, the Canadian flag 
+
+Matt -
+
+Liv -
+
+=============================================================================================
+When printing/downloading data to a file the file should be formatted as such:
 
 Price
 Sku
