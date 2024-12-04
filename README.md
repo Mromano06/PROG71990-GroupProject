@@ -2,9 +2,9 @@ Division of labour within the group:
 
 Evan - Worked on the UI, display functions, search functions, add function, and most importantly, the Canadian flag 
 
-Matt -
+Matt - Worked on the linked list and all its functions, created the product struct and its functions, file input, file output, delete function, and the update function
 
-Liv -
+Liv - 
 
 =============================================================================================
 When printing/downloading data to a file the file should be formatted as such:
