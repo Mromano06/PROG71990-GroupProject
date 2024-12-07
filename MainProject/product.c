@@ -75,7 +75,8 @@ bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile) {
 
 
 void DeleteProduct(PRODUCT* p) {
-	// this wont do much right now (or ever)
+	// livizm is gonna make this work :)
+
 }
 
 bool CompareProduct(PRODUCT lhs, PRODUCT rhs) {
