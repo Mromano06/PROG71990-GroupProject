@@ -38,3 +38,7 @@ void CreateListFromStream(PLISTNODE list, const char* fileName);
 int GetListSize(PLISTNODE listHead);
 
 void FindProductToUpdate(PLISTNODE list);
+
+bool writeproductstofile(const char* filename, PLISTNODE* node);
+
+bool readproductsfromfile(const char* filename, PLISTNODE* node);

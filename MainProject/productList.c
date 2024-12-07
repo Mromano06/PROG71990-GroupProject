@@ -52,7 +52,7 @@ void DisplayAll(PLISTNODE list) { // function to display all products
 
 	printf("\nAll Products:\n");
 	while (current != NULL) {
-		printf("sku: %d, name: %s, qauantity: %d, price: %.2f, description: %s\n", // print the data of current
+		printf("SKU: %d, NAME: %s, QUANTITY: %d, PRICE: %.2f, DESCRIPTION: %s\n", // print the data of current
 			current->data.sku, current->data.name,
 			current->data.quantity, current->data.price,
 			current->data.description);
@@ -187,7 +187,7 @@ bool SearchRangeOfProducts(PLISTNODE list) {
 		return true;
 	} 
 
-	printf("1 or more products not found");
+	printf("1 or more products not found\n");
 	return false;
 }
 
@@ -201,7 +201,7 @@ void PrintListToStream(PLISTNODE list, const char* fileName) {
 	}
 	PLISTNODE current = list;
 	while (current != NULL) {
-		if (!WriteProductToFile(fileName, current->data, writeFile))
+		if (!writeproducttofile(fileName, current->data, writeFile))
 			break;
 		current = current->next;
 	}
@@ -218,7 +218,7 @@ void CreateListFromStream(PLISTNODE list, const char* fileName) {
 	}
 	PLISTNODE current = list;
 	while (current != NULL) {
-		if (!ReadProductFromFile(fileName, current->data, readFile))
+		if (!ReadProductFromFile(fileName, readFile))
 			break;
 		current = current->next;
 	}
@@ -325,4 +325,49 @@ bool UpdateProduct(PLISTNODE list) {
 	return true;
 
 	
+}
+
+
+
+bool writeproductstofile(const char* filename, PLISTNODE* node)
+{
+	PLISTNODE funcnode = node;
+	while (funcnode->next != NULL)
+	{
+		writeproducttofile(filename, funcnode->data);
+		node = funcnode->next;
+	}
+	writeproducttofile(filename, funcnode->data);
+	node = funcnode->next;
+	return true;
+}
+
+bool readproductsfromfile(const char* filename, PLISTNODE* node)
+{
+	PRODUCT temp;
+	FILE* mainfile = fopen(filename, "r");
+	bool loadloop = true;
+	char buff[NAME_LENGTH];
+	while (loadloop == true)
+	{
+		fgets(buff, NAME_LENGTH, mainfile);
+		if (feof(mainfile) != 0)
+		{
+			fclose(mainfile);
+			return true;
+		}
+		else
+		{
+			temp.price = atof(buff);
+			fgets(buff, NAME_LENGTH, mainfile);
+			temp.sku = atoi(buff);
+			fgets(buff, NAME_LENGTH, mainfile);
+			temp.quantity = atoi(buff);
+			fgets(temp.name, NAME_LENGTH, mainfile);
+			fgets(temp.description, NAME_LENGTH, mainfile);
+			temp.name[strcspn(temp.name, "\n")] = 0;
+			temp.description[strcspn(temp.description, "\n")] = 0;
+			Add(node, temp);
+		}
+	}
 }

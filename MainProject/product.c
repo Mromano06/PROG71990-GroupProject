@@ -31,51 +31,89 @@ PRODUCT CopyProduct(PRODUCT p) {
 
 // prints product
 void PrintProduct(PRODUCT p) {		
-	printf("sku: %d, name: %s, qauantity: %d, price: %.2f, description: %s\n", // print the data of located product
+	printf("SKU: %d, NAME: %s, QUANTITY: %d, PRICE: %.2f, DESCRIPTION: %s\n", // print the data of located product
 		p.sku, p.name, p.quantity, p.price, p.description);
     }
 
 // reads a product from the file 
 // (info held in the file will most likely be held in a list,
 // formatting an dprinting will ony be used in the interface/UI)
+
 //TODO figure out why im getting exception here
-bool ReadProductFromFile(const char* fileName, PRODUCT current, FILE* readFile) {
-	PRODUCT temp;
-	float price = 0;														// temp variables for saving the product
-	int sku = 0, quantity = 0;
-	char name[NAME_LENGTH] = { '\0' },
-		desc[DESCRIPTION_LENGTH] = { '\0' };
+FILE* openfiletoread(FILE* pfile, char* filename)
+{	// creates new file to print to (if needed)
 
-	// float Price, int Sku, int Quantity, char Name[], char Desc[]
-	if (fscanf(readFile, "%f\n%d\n%d\n%s\n%s\n", &current.price, &sku,				// reads data from file and saves into sent product
-		&quantity, name, desc) == 5) {
-		current.price = price;
-		current.price = sku;
-		current.quantity = quantity;
-		strncpy(current.name, name, NAME_LENGTH);
-		strncpy(current.description, desc, DESCRIPTION_LENGTH);
+	pfile = fopen(filename, "r");
+	if (pfile == NULL) {
+		filename = fopen(filename, "w");
+		return;
 	}
-	else{
-		return false;
-	}
+	return pfile;
+}
 
+FILE* openfiletowrite(FILE* pfile, char* filename)
+{
+	pfile = fopen(filename, "w");
+	if (pfile == NULL)
+	{
+		return NULL;
+	}
+	return pfile;
+}
+
+bool closefile(FILE* pfile)
+{
+	close(pfile);
+}
+
+bool ReadProductFromFile(const char* fileName, PRODUCT* currents) {
+	PRODUCT temp = {'\0'};
+	FILE* pfile = NULL;
+	char buff[NAME_LENGTH] = { '\0' };
+	pfile = openfiletoread(pfile, fileName);
+	char nameofproduct[NAME_LENGTH];
+	fgets(buff, NAME_LENGTH, pfile);
+	currents->price = atof(buff);
+	fgets(buff, NAME_LENGTH, pfile);
+	currents->sku = atoi(buff);
+	fgets(buff, NAME_LENGTH, pfile);
+	currents->quantity = atoi(buff);
+	fgets(currents->name, NAME_LENGTH, pfile);
+	fgets(currents->description, NAME_LENGTH, pfile);
+	currents->name[strcspn(currents->name, "\n")] = 0;
+	currents->description[strcspn(currents->description, "\n")] = 0;
+	fclose(pfile);
 	return true;
 }
 
-// write a product to the file
-bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile) {
-	if (!fprintf(writeFile, "%f\n%d\n%d\n%s\n%s\n", p.price, p.sku,			// prints p's data to file
-		p.quantity, p.name, p.description)) {
-		fclose(writeFile);
-		return false;
-	}
-
-	return true;
+bool writeproducttofile(const char* filename, PRODUCT* currents)
+{
+	FILE* pfile = NULL;
+	pfile = openfiletowrite(pfile, filename);	
+	fprintf(pfile, "%f\n", currents->price);
+	fprintf(pfile, "%d\n", currents->sku);
+	fprintf(pfile, "%d\n", currents->quantity);
+	fprintf(pfile, "%s\n", currents->name);
+	fprintf(pfile, "%s\n", currents->description);
+	fclose(pfile);
 }
+
+
+
+//bool WriteProductToFile(const char* fileName, PRODUCT p, FILE* writeFile) {
+//	if (!fprintf(writeFile, "%f\n%d\n%d\n%s\n%s\n", p.price, p.sku,			// prints p's data to file
+//		p.quantity, p.name, p.description)) {
+//		fclose(writeFile);
+//		return false;
+//	}
+//
+//	return true;
+//}
 
 
 void DeleteProduct(PRODUCT* p) {
 	// livizm is gonna make this work :)
+	// i honest to god cannot bother with this
 
 }
 
